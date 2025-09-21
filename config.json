@@ -1,4 +1,8 @@
 {
   "managedDirs": ["mods", "configs", "resourcepacks"],
   "preserveDirs": ["saves", "settings", "screenshots"]
+  "zip":{
+    "path":"/",
+    "name":"jdk17.0.16.zip"
+  }
 }
