@@ -1,0 +1,27 @@
+{
+  "name": "launcher-strb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "dist": "electron-builder"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^38.1.2",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.example.myapp",
+    "productName": "MyApp",
+    "win": {
+      "target": "portable"
+    }
+  },
+  "dependencies": {
+    "minecraft-launcher-core": "^3.18.2"
+  }
+}
