@@ -2,8 +2,15 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 
-const ROOT_DIR = "minecraft"; // папка, которую сканируем
-const manifest = {};
+const ROOT_DIR = "minecraft";
+const manifest = { files: {} };
+
+// Загружаем config.json
+let config = {};
+if (fs.existsSync("config.json")) {
+  config = JSON.parse(fs.readFileSync("config.json", "utf8"));
+}
+manifest.config = config;
 
 function hashFile(filePath) {
   const data = fs.readFileSync(filePath);
@@ -19,12 +26,14 @@ function walk(dir, base = "") {
     if (stat.isDirectory()) {
       walk(fullPath, relPath);
     } else {
-      manifest[relPath.replace(/\\/g, "/")] = hashFile(fullPath);
+      manifest.files[relPath.replace(/\\/g, "/")] = hashFile(fullPath);
     }
   }
 }
 
-walk(ROOT_DIR, ROOT_DIR);
+if (fs.existsSync(ROOT_DIR)) {
+  walk(ROOT_DIR, ROOT_DIR);
+}
 
 fs.writeFileSync("manifest.json", JSON.stringify(manifest, null, 2));
-console.log("✅ manifest.json создан!");
+console.log("✅ manifest.json создан с учётом config.json!");
