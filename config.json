@@ -1,0 +1,11 @@
+{
+  "managedDirs": ["mods", "configs", "resourcepacks"],
+  "preserveDirs": ["saves", "settings", "screenshots"],
+  "zip":{
+    "java":{
+      "name":"jdk-17.0.16",
+      "path":"/minecraft",
+      "url":"https://github.com/vlplastelin/launcher-strb/releases/download/java/jdk17.0.16.zip"
+    }
+  }
+}

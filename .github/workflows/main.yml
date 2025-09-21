@@ -1,0 +1,28 @@
+name: Generate manifest
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # 👈 даёт право пушить
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - run: node generateManifest.js
+
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add manifest.json
+          git commit -m "Update manifest [skip ci]" || echo "No changes"
+          git push
