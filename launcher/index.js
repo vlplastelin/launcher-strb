@@ -1,8 +1,11 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu } = require('electron')
 const { ipcMain } = require('electron');
 const path = require('path');
 
 const { Client, Authenticator } = require('minecraft-launcher-core');
+
+const { updateFiles } = require('./updater');
+
 const launcher = new Client();
 
 function getResourcePath(...subPath) {
@@ -14,7 +17,7 @@ function getResourcePath(...subPath) {
     return path.join(path.dirname(process.execPath), ...subPath);
   } else {
     // Dev-режим
-    return path.join(__dirname, ...subPath);
+    return path.join(__dirname,"..",...subPath);
   }
 }
 
@@ -34,13 +37,13 @@ let opts = {
     }
   },
     //javaPath: path.join(__dirname,"../jdk-17.0.16/bin/java.exe"),
-    javaPath: getResourcePath("..","minecraft","jdk-17.0.16","bin","java.exe"),
-    root: getResourcePath("..","minecraft"),
+    javaPath: getResourcePath("minecraft","jdk-17.0.16","bin","java.exe"),
+    root: getResourcePath("minecraft"),
     version: {
         number: "1.20.1",
         type: "release"
     },
-    forge: getResourcePath("..","minecraft","forge-1.20.1-47.4.9-installer.jar"),
+    forge: getResourcePath("minecraft","forge-1.20.1-47.4.9-installer.jar"),
     memory: {
         max: "6G",
         min: "4G"
@@ -74,4 +77,17 @@ ipcMain.on('start-minecraft', (event) => {
 
 app.whenReady().then(() => {
   createWindow();
+  // Remove the default application menu (File/Edit/View/Help)
+  // This hides the menu bar on Windows and other platforms
+  try {
+    Menu.setApplicationMenu(null);
+  } catch (err) {
+    console.error('Failed to remove application menu:', err);
+  }
+  // run updater but protect against errors so UI still opens
+  try {
+    updateFiles(getResourcePath("/"));
+  } catch (err) {
+    console.error('Updater failed:', err);
+  }
 })
