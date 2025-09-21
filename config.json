@@ -4,7 +4,7 @@
   "zip":{
     "java":{
       "name":"jdk-17.0.16",
-      "path":"/",
+      "path":"/minecraft",
       "url":"https://github.com/vlplastelin/launcher-strb/releases/download/java/jdk17.0.16.zip"
     }
   }
