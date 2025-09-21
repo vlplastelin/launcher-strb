@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Menu } = require('electron')
 const { ipcMain } = require('electron');
+const { autoUpdater } = require('electron-updater');
 const path = require('path');
 
 const { Client, Authenticator } = require('minecraft-launcher-core');
@@ -89,5 +90,21 @@ app.whenReady().then(() => {
     updateFiles(getResourcePath("/"));
   } catch (err) {
     console.error('Updater failed:', err);
+  }
+  // auto-updater: check and install automatically
+  try {
+    autoUpdater.checkForUpdatesAndNotify();
+
+    autoUpdater.on('update-downloaded', (info) => {
+      console.log('Update downloaded, installing...');
+      try {
+        // install immediately and restart
+        autoUpdater.quitAndInstall();
+      } catch (e) {
+        console.error('Failed to quit and install update:', e);
+      }
+    });
+  } catch (err) {
+    console.error('autoUpdater failed:', err);
   }
 })
