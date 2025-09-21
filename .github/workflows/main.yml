@@ -2,13 +2,18 @@ name: Generate manifest
 
 on:
   push:
-    branches: [ "main" ]   # или любая твоя рабочая ветка
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # 👈 даёт право пушить
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
 
       - uses: actions/setup-node@v3
         with:
