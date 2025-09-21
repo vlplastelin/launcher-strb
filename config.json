@@ -1,0 +1,4 @@
+{
+  "managedDirs": ["mods", "configs", "resourcepacks"],
+  "preserveDirs": ["saves", "settings", "screenshots"]
+}
