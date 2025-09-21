@@ -3,6 +3,6 @@
   "preserveDirs": ["saves", "settings", "screenshots"]
   "zip":{
     "path":"/",
-    "name":"jdk17.0.16.zip"
+    "url":"https://download.bell-sw.com/java/17.0.16+12/bellsoft-jdk17.0.16+12-windows-amd64.zip"
   }
 }
