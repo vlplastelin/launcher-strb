@@ -4,7 +4,7 @@
   },
   "config": {
     "managedDirs": [
-      "mods",
+      "minecraft/mods",
       "configs",
       "resourcepacks"
     ],
