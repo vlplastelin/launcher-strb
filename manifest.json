@@ -18,7 +18,7 @@
       "java": {
         "name": "jdk-17.0.16",
         "path": "/",
-        "url": "https://f2h.io/1aylziu7o950"
+        "url": "https://github.com/vlplastelin/launcher-strb/releases/download/java/jdk17.0.16.zip"
       }
     }
   }
