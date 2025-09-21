@@ -3,79 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"
-    />
     <title>STRB launcher</title>
-    <style>
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: white;
-        text-align: center;
-        overflow: hidden;
-      }
-
-      .container {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        padding: 40px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        max-width: 400px;
-        width: 100%;
-      }
-
-      h1 {
-        margin-bottom: 30px;
-        font-size: 2.5em;
-        font-weight: 300;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-      }
-
-      button {
-        padding: 15px 30px;
-        font-size: 18px;
-        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-        color: white;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-
-      button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
-      }
-
-      button:active {
-        transform: translateY(0);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
-      <h1>Запустить кубы 2!</h1>
-      <button id="start-minecraft">Start Minecraft</button>
+      <sl-tab-group stre>
+      <sl-tab slot="nav" panel="Game">Играть</sl-tab>
+      <sl-tab slot="nav" panel="Settings">Настройки</sl-tab>
+
+      <sl-tab-panel name="Game">
+        <div class="login-container">
+
+        
+          <form id="login-form">
+            <img src="logo.png" alt="Logo" class="logo" />
+            <!--Login Form-->
+            <sl-input type="text" placeholder="Username" required></sl-input>
+            <sl-input type="password" placeholder="Password" required></sl-input>
+            <sl-button type="primary" size="large" id="play-button">Играть</sl-button>
+            </form>
+        </div>
+        
+      </sl-tab-panel>
+      <sl-tab-panel name="Settings">This is the Settings tab panel.</sl-tab-panel>
+    </sl-tab-group>
     </div>
-    <script src="renderer.js"></script>
+    
+
   </body>
+  <script src="renderer.js"></script>
 </html>

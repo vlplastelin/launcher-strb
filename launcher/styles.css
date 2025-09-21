@@ -1,0 +1,52 @@
+html body{
+    height: 100vh;
+    margin: 0;
+    background-image: url("background.png");
+
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+}
+#login-form{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
+    gap: 5px;
+    
+}
+sl-tab-group {
+  height: 100%;
+}
+
+sl-tab-group::part(base) {
+    height: 100%;       /* важно для скролла */
+}
+sl-tab-group::part(body) {
+    height: 100%;       /* важно для скролла */
+}
+sl-tab-group::part(nav) {
+    background-color: rgba(255, 255, 255, 0.616);
+    color: black;     /* важно для скролла */
+}
+/* внутренняя обёртка панели растягивается на 100% */
+sl-tab-panel::part(base) {
+  height: 100%;
+  min-height: 0;
+  overflow: auto;          /* скролл внутри панели */
+}
+sl-tab-panel{
+    height: 100%;
+    margin: auto;
+}
+.login-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.container {
+  height: 100%;
+}
+      
