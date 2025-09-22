@@ -54,6 +54,18 @@ launcher.on('debug', (e) => console.log(e));
 launcher.on('data', (e) => console.log(e));
 launcher.on('progress', (e) => {
   console.log(e);
+  if(e.total) {
+    console.log(`Downloaded ${e.task} of ${e.total}`);
+    let progress = Math.round((e.task / e.total) * 100);
+    
+    if (progress == 100 && e.task < e.total) {
+      progress = 99;
+    }else if (e.task === e.total) {
+      progress = 100;
+    }
+    console.log(`Progress: ${progress}%`);
+    win.webContents.send('update-progress', progress);
+  }
 });
 
 const createWindow = () => {
@@ -68,30 +80,27 @@ const createWindow = () => {
   })
 
   win.loadFile('index.html')
+  return win;
 }
 
-ipcMain.on('start-minecraft', (event) => {
-    console.log('Starting Minecraft...');
+ipcMain.on('start-minecraft', (event, {params}) => {
+  console.log('Starting Minecraft...');
+  console.log(params);
+  opts.authorization.name = params.username;
   // Здесь вызывается нужная функция
   launcher.launch(opts);
 });
 
 app.whenReady().then(() => {
-  createWindow();
-  // Remove the default application menu (File/Edit/View/Help)
-  // This hides the menu bar on Windows and other platforms
-  try {
-    Menu.setApplicationMenu(null);
-  } catch (err) {
-    console.error('Failed to remove application menu:', err);
-  }
-  // run updater but protect against errors so UI still opens
-  try {
-    updateFiles(getResourcePath("/"));
-  } catch (err) {
-    console.error('Updater failed:', err);
-  }
+  win = createWindow();
+
+
+  //updateFiles(getResourcePath("/"));
+
   // auto-updater: check and install automatically
+  
+})
+ipcMain.on('request-update', (event) => {
   try {
     autoUpdater.checkForUpdatesAndNotify();
 
@@ -104,7 +113,17 @@ app.whenReady().then(() => {
         console.error('Failed to quit and install update:', e);
       }
     });
+    //when finished checking for updates
+    autoUpdater.on('update-not-available', (info) => {
+      
+      console.log('No updates available');
+    });
+    console.log('No updates available');
+    win.webContents.on('did-finish-load', () => {
+      
+    });
   } catch (err) {
     console.error('autoUpdater failed:', err);
   }
-})
+  win.webContents.send('no-update');
+});

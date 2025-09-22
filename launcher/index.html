@@ -6,6 +6,7 @@
     <title>STRB launcher</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css" />
     <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
+    <script type="module" src="renderer.js"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -22,17 +23,39 @@
             <img src="logo.png" alt="Logo" class="logo" />
             <!--Login Form-->
             <sl-input type="text" placeholder="Username" required></sl-input>
-            <sl-input type="password" placeholder="Password" required></sl-input>
-            <sl-button type="primary" size="large" id="play-button">Играть</sl-button>
-            </form>
+            <sl-input type="password" placeholder="Password" style="display: none;"></sl-input>
+            <sl-button type="primary" size="large" id="play-button" type="submit">Играть</sl-button>
+          </form>
         </div>
         
       </sl-tab-panel>
       <sl-tab-panel name="Settings">This is the Settings tab panel.</sl-tab-panel>
     </sl-tab-group>
-    </div>
-    
 
+    <!-- Loading Dialog -->
+    <sl-dialog label="Updating launcher..." id="launcher-update" class="dialog-deny-close">
+      <div class="loading-content">
+        <sl-spinner style="font-size: 3rem;"></sl-spinner>
+        <p id="loading-message">Loading...</p>
+      </div>
+    </sl-dialog>
+
+    <!-- Loading progress -->
+    <sl-dialog label="Loading progress..." id="loading-progress" class="dialog-deny-close">
+        <sl-progress-bar value="0"></sl-progress-bar>
+    </sl-dialog>
+    </div>
+
+  
   </body>
-  <script src="renderer.js"></script>
+  
+  <script>
+    //prevent dialog from closing by class
+    document.querySelectorAll('.dialog-deny-close').forEach(dialog => {
+      dialog.addEventListener('sl-request-close', event => {
+        event.preventDefault();
+      });
+    });
+  </script>
+  
 </html>

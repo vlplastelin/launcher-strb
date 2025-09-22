@@ -49,4 +49,13 @@ sl-tab-panel{
 .container {
   height: 100%;
 }
-      
+.loading-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.dialog-deny-close::part(header-actions){
+    display: none;
+}
